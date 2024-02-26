@@ -9,5 +9,24 @@ Content-Type: application/json
     "modele": "ze8",
     "annee": 2020,
     "couleur": "bleue"
+} 
+###
+PUT http://localhost:3000/garage/1
+Content-Type: application/json
+
+{
+    "marque": "volvo",
+    "modele": "ze8",
+    "annee": 2021,
+    "couleur": "bleue"
 }
 ###
+DELETE http://localhost:3000/garage/1
+Content-Type: application/json
+
+{
+    "marque": "volvo",
+    "modele": "ze8",
+    "annee": 2021,
+    "couleur": "bleue"
+}
