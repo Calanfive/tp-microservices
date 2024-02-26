@@ -1,0 +1,13 @@
+GET http://localhost:3000/garage
+
+###
+POST http://localhost:3000/garage/add
+Content-Type: application/json
+
+{
+    "marque": "volvo",
+    "modele": "ze8",
+    "annee": 2020,
+    "couleur": "bleue"
+}
+###
