@@ -8,7 +8,7 @@ import { garageRouter } from "./router/garage";
 
 const app = express();
 app.use(cors());
-app.use(bodyparser.json());
+app.use(express.json());
 
 const port = process.env.PORT ? parseInt(process.env.PORT as string) : 3000
 const database = process.env.POSTGRES_DB as string
@@ -33,9 +33,8 @@ export const garage = garageModel(mySequelize);
 mySequelize.sync({force: true})
 // mySequelize.sync()
 
-app.use("/garage", garageRouter)
+app.use("/", garageRouter)
 
 app.listen(port, () => {
     console.log('serveur running on port : ' + port);
 })
-

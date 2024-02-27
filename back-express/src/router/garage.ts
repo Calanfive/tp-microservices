@@ -3,12 +3,17 @@ import { garage } from "..";
 
 export const garageRouter = Router();
 
-garageRouter.get('/', (_, res) => {
-    console.log('cars cars cars');
-    res.send('okok')
+garageRouter.get('/', async (_, res) => {
+    const voitures = await garage.findAll()
+    res.json(voitures)
 })
 
-garageRouter.post("/add", async (req, res) => {
+garageRouter.get('/:id', async (req, res) => {
+    const voiture = await garage.findOne({where: { id: req.params.id }})
+    res.json(voiture)
+})
+
+garageRouter.post("/", async (req, res) => {
     const {marque, modele, annee, couleur} = req.body;
     const newCar = await garage.create({marque, modele, annee, couleur});
     console.log(newCar);
@@ -25,7 +30,6 @@ garageRouter.put("/:id", async (req, res) => {
         couleur: req.body.couleur
     })
     res.json(modified)
-    res.send('information modifiée')
 })
 
 garageRouter.delete("/:id", async (req, res) => {
