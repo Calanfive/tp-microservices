@@ -10,6 +10,7 @@ import { TokenBlackListModel } from "./model/TokenBlackList";
 import { authRouter } from "./router/auth";
 import { userRouter } from "./router/users";
 import { createProxyMiddleware } from "http-proxy-middleware";
+import { checkToken } from "./middlewares/checkToken";
 
 export const sequelize = new Sequelize({
   dialect: 'sqlite',
@@ -44,14 +45,15 @@ const pythonProxy = createProxyMiddleware(
       }
   }
 )
+
 const apiRouter = express.Router();
 apiRouter.use('/voitures', voituresProxy);
-apiRouter.use('/python', pythonProxy)
+apiRouter.use('/python', checkToken, pythonProxy)
 
 apiRouter.use(express.json());
 
 apiRouter.use('/auth', authRouter);
-apiRouter.use('/users', userRouter);
+apiRouter.use('/users', checkToken, userRouter);
 app.use("/api", apiRouter);
 
 app.listen(process.env.PORT, () => {
